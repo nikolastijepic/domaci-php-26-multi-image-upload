@@ -11,20 +11,22 @@ $image = new Images();
 
 
 foreach ($_FILES['profileImage']['name'] as $key => $file) {
+
+    $imgName = $_FILES['profileImage']['name'][$key];
+
     /// Provera velicine slike (maksimalna dozvoljena velicina slike je 2MB) ///
     $imageSize = $_FILES['profileImage']['size'][$key];
 
     if (!$image->isValidSize($imageSize)) {
-        $_SESSION['uploadErrors'][] = "Slika je prevelika! Maksimalna dozvoljena velicina slike je 2MB.";
+        $_SESSION['uploadErrors'][] = "Slika je prevelika (max 2MB): $imgName";
         continue;
     }
 
     /// Provera formata slike (jpeg, jpg, png, gif) ///
-    $imgName = $_FILES['profileImage']['name'][$key];
     $imageType = pathinfo($imgName, PATHINFO_EXTENSION);
 
     if (!$image->isValidExtension($imageType)) {
-        $_SESSION['uploadErrors'][] =  "Format slike nije dobar, mora biti: " . implode(', ', Images::ALLOWED_EXTENSIONS);
+        $_SESSION['uploadErrors'][] =  "Format slike nije dobar, mora biti: " . implode(', ', Images::ALLOWED_EXTENSIONS) . " : $imgName";
         continue;
     }
 
@@ -33,7 +35,7 @@ foreach ($_FILES['profileImage']['name'] as $key => $file) {
     list($imageWidth, $imageHeight) = getimagesize($tmpName);
 
     if (!$image->isValidDimensions($imageWidth, $imageHeight)) {
-        $_SESSION['uploadErrors'][] =  "Maksimalna dozvoljena sirina slike je 1920px, a maksimalna dozvoljena visina slike je 1024px.";
+        $_SESSION['uploadErrors'][] =  "Maksimalne dozvoljene dimenzije slike su 1920x1024: $imgName";
         continue;
     }
 
@@ -45,9 +47,9 @@ foreach ($_FILES['profileImage']['name'] as $key => $file) {
 
     /// Upload slike i cuvanje imena slike u bazi podataka ///
     if (!$image->upload($tmpName, $randomName, "uploads")) {
-        $_SESSION['uploadErrors'][] =  "Upload slike nije uspeo!";
+        $_SESSION['uploadErrors'][] =  "Neuspesan upload slike: $imgName";
     } else {
-        $_SESSION['uploadSuccess'][] = "Uspesan upload slike!";
+        $_SESSION['uploadSuccess'][] = "Uspesan upload slike: '$imgName'";
     }
 }
 
