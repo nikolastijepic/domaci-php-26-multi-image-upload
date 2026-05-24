@@ -22,7 +22,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <body>
 
-    /// Poruka o gresci pri upload-u ///
+    <!-- Poruka o gresci pri upload-u -->
     <div>
         <?php if (isset($_SESSION['uploadErrors'])): ?>
             <?php foreach ($_SESSION['uploadErrors'] as $error): ?>
@@ -32,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php endif; ?>
     </div>
 
-    /// Poruka o uspesnom upload-u ///
+    <!-- Poruka o uspesnom upload-u -->
     <div>
         <?php if (isset($_SESSION['uploadSuccess'])): ?>
             <?php foreach ($_SESSION['uploadSuccess'] as $success): ?>
@@ -42,7 +42,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php endif; ?>
     </div>
 
-    /// Prikaz galerije slika ///
+    <!-- Prikaz galerije slika -->
     <div class="gallery-container">
         <div class="gallery-header">
             <h1>Image Gallery</h1>
