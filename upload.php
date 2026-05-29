@@ -8,7 +8,11 @@ require_once "./models/Images.php";
 
 $image = new Images();
 
-
+if ($_FILES['profileImage']['error'][0] === UPLOAD_ERR_NO_FILE) {
+    $_SESSION['uploadErrors'] = "Morate odabrati barem jednu sliku.";
+    header("Location: index.php");
+    exit;
+}
 
 foreach ($_FILES['profileImage']['name'] as $key => $file) {
 
@@ -54,3 +58,4 @@ foreach ($_FILES['profileImage']['name'] as $key => $file) {
 }
 
 header("Location: images.php");
+exit;

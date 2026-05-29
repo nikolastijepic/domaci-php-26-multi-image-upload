@@ -101,3 +101,13 @@ body {
 	color: #cbd5e1;
 	font-size: 14px;
 }
+
+.error-message {
+	margin-top: 16px;
+}
+
+.error-message .error-message-text {
+	color: #ef4444;
+	text-align: center;
+	margin: 0;
+}

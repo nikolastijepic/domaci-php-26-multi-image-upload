@@ -1,3 +1,12 @@
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +38,14 @@
             name="profileImage[]"
             multiple
             hidden>
+        <?php if (isset($_SESSION['uploadErrors'])): ?>
+            <div class="error-message">
+                <p class="error-message-text">
+                    <?= $_SESSION['uploadErrors'] ?>
+                </p>
+            </div>
+            <?php unset($_SESSION['uploadErrors']); ?>
+        <?php endif; ?>
         <button class="upload-btn" type="submit">
             Upload Files
         </button>

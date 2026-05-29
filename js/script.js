@@ -4,6 +4,12 @@ const fileMessage = document.getElementById("fileMessage");
 fileInput.addEventListener("change", function () {
 	const totalFiles = this.files.length;
 
+	const errorContainer = document.querySelector(".error-message");
+
+	if (errorContainer && totalFiles > 0) {
+		errorContainer.remove();
+	}
+
 	if (totalFiles === 0) {
 		fileMessage.textContent = "PNG, JPG, GIF supported";
 	} else if (totalFiles === 1) {
